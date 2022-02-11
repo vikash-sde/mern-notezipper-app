@@ -34,6 +34,7 @@ const userSchema = mongoose.Schema(
   }
 );
 
+//for encrypting password
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
@@ -42,6 +43,11 @@ userSchema.pre("save", async function (next) {
   const salt = await bcryptjs.genSalt(10);
   this.password = await bcryptjs.hash(this.password, salt);
 });
+
+//for decrypting password
+userSchema.methods.matchPassword = async function (enterPassword) {
+  return await bcryptjs.compare(enterPassword, this.password);
+};
 
 const User = mongoose.model("User", userSchema);
 
