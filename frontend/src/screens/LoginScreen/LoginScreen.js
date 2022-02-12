@@ -1,17 +1,18 @@
 import axios from "axios";
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import MainScreen from "../../components/MainScreen/MainScreen";
 import Loading from "../../components/Loading";
 import "./LoginScreen.css";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -38,6 +39,7 @@ const LoginScreen = () => {
       setLoading(false);
     } catch (error) {
       setError(error.response.data.message);
+      setLoading(false);
     }
   };
 
@@ -45,7 +47,8 @@ const LoginScreen = () => {
     <div>
       <MainScreen title="LOGIN">
         <div className="login_container">
-          {loading && <Loading size={200} />}
+          {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+          {loading && <Loading size={50} />}
           <Form onSubmit={submitHandler}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>

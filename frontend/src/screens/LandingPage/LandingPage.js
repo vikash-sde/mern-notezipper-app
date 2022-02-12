@@ -3,6 +3,12 @@ import { Button, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./landingpage.css";
 const LandingPage = () => {
+  // useEffect(() => {
+  //   const userInfo = localStorage.getItem("userInfo");
+  //   if (userInfo) {
+  //     history.push("/mynotes");
+  //   }
+  // }, [history]);
   return (
     <div className="main">
       <Container>
