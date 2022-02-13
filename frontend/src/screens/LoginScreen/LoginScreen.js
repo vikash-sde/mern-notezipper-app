@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import MainScreen from "../../components/MainScreen/MainScreen";
@@ -12,7 +12,6 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -34,7 +33,7 @@ const LoginScreen = () => {
         },
         config
       );
-      console.log(data);
+      // console.log(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
     } catch (error) {
@@ -50,7 +49,7 @@ const LoginScreen = () => {
           {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
           {loading && <Loading size={50} />}
           <Form onSubmit={submitHandler}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3">
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
@@ -60,7 +59,7 @@ const LoginScreen = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"

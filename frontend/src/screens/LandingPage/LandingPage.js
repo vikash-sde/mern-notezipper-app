@@ -3,6 +3,7 @@ import { Button, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./landingpage.css";
 const LandingPage = () => {
+  // const history = useHistory();
   // useEffect(() => {
   //   const userInfo = localStorage.getItem("userInfo");
   //   if (userInfo) {
