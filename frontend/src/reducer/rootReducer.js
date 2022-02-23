@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux'
+import { userLoginReducer } from './userReducer'
 
 
 const rootReducer = combineReducers({
 
-    todos: 'viakash',
+    userLogin: userLoginReducer,
 
 })
 
