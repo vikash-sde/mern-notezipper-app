@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MainScreen from "../../components/MainScreen/MainScreen";
@@ -6,15 +6,27 @@ import Loading from "../../components/Loading";
 import "./LoginScreen.css";
 import ErrorMessage from "../../components/ErrorMessage";
 import { login } from "../../action/userAction";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-const LoginScreen = () => {
+const LoginScreen = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+
 
   const dispatch = useDispatch();
+
+
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { loading, error, userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push('./mynotes')
+    }
+  }, [history, userInfo]);
+
+
 
   const submitHandler = async (e) => {
     e.preventDefault();
