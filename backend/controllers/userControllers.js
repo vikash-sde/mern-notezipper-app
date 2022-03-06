@@ -3,6 +3,7 @@ const User = require("../models/userModels");
 const generateToken = require("../utils/generateToken");
 
 const registerUser = asynceHandler(async (req, res) => {
+  //mongoodb query
   const { name, email, password, pic } = req.body;
   const userExists = await User.findOne({ email });
 
