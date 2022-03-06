@@ -1,8 +1,9 @@
-import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { register } from "../../action/userAction";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import MainScreen from "../../components/MainScreen/MainScreen";
@@ -14,43 +15,31 @@ const SignupScreen = () => {
     "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
   );
   const [picMessage, setPicMessage] = useState();
-  const [error, setError] = useState(false);
   const [message, setMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
-
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const userRegister = useSelector((state) => state.userRegister)
+  const { loading, error, userInfo } = userRegister;
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push("mynotes")
+    }
+
+
+  }, [userInfo, history])
+
+
   const submitHandler = async (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {
-      setMessage(null);
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-        setLoading(true);
-
-        const { data } = await axios.post(
-          "api/users",
-          {
-            name,
-            email,
-            password,
-            pic,
-          },
-          config
-        );
-        // console.log(data);
-        localStorage.setItem("userInfo", JSON.stringify(data));
-        setLoading(false);
-      } catch (error) {
-        setError(error.response.data.message);
-        setLoading(false);
-      }
+      dispatch(register(name, email, password, pic))
     }
   };
 

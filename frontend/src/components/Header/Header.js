@@ -19,7 +19,7 @@ const Header = () => {
   const { userInfo } = userLogin;
   const logoutHandler = () => {
     dispatch(logout())
-    history.push("/login")
+    history.push("/")
   }
 
   return (
