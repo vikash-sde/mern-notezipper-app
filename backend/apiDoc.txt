@@ -1,0 +1,12 @@
+
+USER AND AUTH API
+
+POST - /api/users
+POST - /api/users/login
+
+
+NOTES API 
+
+
+
+
