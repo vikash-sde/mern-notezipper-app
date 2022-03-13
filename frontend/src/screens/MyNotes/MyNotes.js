@@ -3,22 +3,22 @@ import { Accordion, Badge, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MainScreen from "../../components/MainScreen/MainScreen";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { noteListAction } from "../../action/notesAction";
 
 const MyNotes = () => {
-  const [notes, setNotes] = useState([]);
+  const dispatch = useDispatch();
+  const noteList = useSelector((state) => state.noteList);
+  const { loading, notes, error } = noteList;
+
   const deleteHandler = () => {
     if (window.confirm("Are you sure you want to delete ?")) {
     }
   };
 
-  const fetchNotes = async () => {
-    const { data } = await axios.get("/api/notes");
-    setNotes(data);
-  };
-
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    dispatch(noteListAction());
+  }, [dispatch]);
 
   return (
     <MainScreen title="Welcome back vikash..!!">
@@ -27,7 +27,7 @@ const MyNotes = () => {
           Create New Note
         </Button>
       </Link>
-      {notes.map((note) => (
+      {notes?.map((note) => (
         <Accordion key={note._id}>
           <Card style={{ marginTop: "10px" }}>
             <Card.Header style={{ display: "flex" }}>
