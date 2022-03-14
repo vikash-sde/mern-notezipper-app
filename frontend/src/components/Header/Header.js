@@ -10,17 +10,17 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logout } from "../../action/userAction";
-const Header = () => {
+const Header = ({ setSearch }) => {
   const history = useHistory();
 
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin)
+  const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const logoutHandler = () => {
-    dispatch(logout())
-    history.push("/")
-  }
+    dispatch(logout());
+    history.push("/");
+  };
 
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
@@ -37,6 +37,7 @@ const Header = () => {
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                onChange={(e)=> setSearch(e.target.value)}
               />
             </Form>
           </Nav>
@@ -53,9 +54,7 @@ const Header = () => {
 
               <NavDropdown.Divider />
 
-              <NavDropdown.Item
-                onClick={() => logoutHandler()}
-              >
+              <NavDropdown.Item onClick={() => logoutHandler()}>
                 Logout
               </NavDropdown.Item>
             </NavDropdown>

@@ -6,7 +6,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import ReactMarkdown from "react-markdown";
 import MainScreen from "../../components/MainScreen/MainScreen";
-import { updateNoteAction } from "../../action/notesAction";
+import { deleteNoteAction, updateNoteAction } from "../../action/notesAction";
 
 function UpdateNote({ match, history }) {
   const [title, setTitle] = useState();
@@ -19,15 +19,15 @@ function UpdateNote({ match, history }) {
   const noteUpdate = useSelector((state) => state.noteUpdate);
   const { loading, error } = noteUpdate;
 
-//   const noteDelete = useSelector((state) => state.noteDelete);
-//   const { loading: loadingDelete, error: errorDelete } = noteDelete;
+  const noteDelete = useSelector((state) => state.noteDelete);
+  const { loading: loadingDelete, error: errorDelete } = noteDelete;
 
-//   const deleteHandler = (id) => {
-//     if (window.confirm("Are you sure?")) {
-//       dispatch(deleteNoteAction(id));
-//     }
-//     history.push("/mynotes");
-//   };
+  const deleteHandler = (id) => {
+    if (window.confirm("Are you sure?")) {
+      dispatch(deleteNoteAction(id));
+    }
+    history.push("/mynotes");
+  };
 
   useEffect(() => {
     const fetching = async () => {
@@ -50,8 +50,8 @@ function UpdateNote({ match, history }) {
 
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateNoteAction(match.params.id, title, content, category));
     if (!title || !content || !category) return;
+    dispatch(updateNoteAction(match.params.id, title, content, category));
 
     resetHandler();
     history.push("/mynotes");
@@ -63,11 +63,11 @@ function UpdateNote({ match, history }) {
         <Card.Header>Edit your Note</Card.Header>
         <Card.Body>
           <Form onSubmit={updateHandler}>
-            {/* {loadingDelete && <Loading />} */}
+            {loadingDelete && <Loading />}
             {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-            {/* {errorDelete && (
+            {errorDelete && (
               <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
-            )} */}
+            )}
             <Form.Group controlId="title">
               <Form.Label>Title</Form.Label>
               <Form.Control
@@ -113,7 +113,7 @@ function UpdateNote({ match, history }) {
             <Button
               className="mx-2"
               variant="danger"
-            //   onClick={() => deleteHandler(match.params.id)}
+              onClick={() => deleteHandler(match.params.id)}
             >
               Delete Note
             </Button>
