@@ -18,6 +18,10 @@ const MyNotes = () => {
 
   const noteCreate = useSelector((state) => state.noteCreate);
   const { success: successCreate } = noteCreate;
+
+  const noteUpdate = useSelector((state) => state.noteUpdate);
+  const { success: successUpdate} = noteUpdate;
+
   const history = useHistory;
 
   const deleteHandler = () => {
@@ -30,7 +34,7 @@ const MyNotes = () => {
     if (!userInfo) {
       history.push("/");
     }
-  }, [dispatch, successCreate, history, userInfo]);
+  }, [dispatch, successCreate, history, userInfo, successUpdate]);
 
   return (
     <MainScreen title={`Welcome back ${userInfo.name}..!!`}>
@@ -61,7 +65,7 @@ const MyNotes = () => {
               </span>
 
               <div>
-                <Button href={`/note/${note._id}`}>Edit</Button>
+                <Button href={`/notes/${note._id}`}>Edit</Button>
                 <Button
                   variant="danger"
                   className="mx-2"
