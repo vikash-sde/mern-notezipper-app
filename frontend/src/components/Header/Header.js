@@ -37,28 +37,39 @@ const Header = ({ setSearch }) => {
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
-                onChange={(e)=> setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </Form>
           </Nav>
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          >
-            <Nav.Link href="/mynotes">
-              <Link to="/mynotes">My Notes</Link>
-            </Nav.Link>
-            <NavDropdown title="Vikash Gupta" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
+          {userInfo ? (
+            <Nav
+              className="me-auto my-2 my-lg-0"
+              style={{ maxHeight: "100px" }}
+              navbarScroll
+            >
+              <Nav.Link >
+                <Link to="/mynotes">My Notes</Link>
+              </Nav.Link>
+              <NavDropdown
+                title={userInfo?.name || "User"}
+                id="navbarScrollingDropdown"
+              >
+                <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
 
-              <NavDropdown.Divider />
+                <NavDropdown.Divider />
 
-              <NavDropdown.Item onClick={() => logoutHandler()}>
-                Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
+                <NavDropdown.Item onClick={() => logoutHandler()}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          ) : (
+            <Nav>
+              <Nav.Link >
+                <Link to="/login">Login</Link>
+              </Nav.Link>
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
