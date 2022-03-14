@@ -47,14 +47,16 @@ const Header = ({ setSearch }) => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link >
+              <Nav.Link>
                 <Link to="/mynotes">My Notes</Link>
               </Nav.Link>
               <NavDropdown
                 title={userInfo?.name || "User"}
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
+                <NavDropdown.Item >
+                  <Link to="/profile">My Profile</Link>
+                </NavDropdown.Item>
 
                 <NavDropdown.Divider />
 
@@ -65,7 +67,7 @@ const Header = ({ setSearch }) => {
             </Nav>
           ) : (
             <Nav>
-              <Nav.Link >
+              <Nav.Link>
                 <Link to="/login">Login</Link>
               </Nav.Link>
             </Nav>

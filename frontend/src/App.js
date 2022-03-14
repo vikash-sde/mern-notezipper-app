@@ -10,6 +10,7 @@ import SignupScreen from "./screens/SignupScreen/SignupScreen";
 import CreateNote from "./screens/CreateNote/CreateNote";
 import UpdateNote from "./screens/UpdateNote/UpdateNote";
 import { useState } from "react";
+import UserProfile from "./screens/UserProfile/UserProfile";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/register" component={SignupScreen} />
         <Route exact path="/createnote" component={CreateNote} />
         <Route exact path="/notes/:id" component={UpdateNote} />
+        <Route exact path="/profile" component={UserProfile} />
         <Route
           exact
           path="/mynotes"

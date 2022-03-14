@@ -63,7 +63,6 @@ export const createNoteAction =
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
-      // console.log(userInfo);
 
       const { data } = await axios.post(
         "/api/notes/create",
